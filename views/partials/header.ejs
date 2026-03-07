@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    <title>
+        <%= typeof title !=='undefined' ? title : 'AURALITH' %>
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" href="/img/Logotipo (Transparente).png">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="container">
+            <a href="/" class="brand">
+                <img src="/img/banner.png" alt="Auralith Logo" style="height: 65px; width: auto; object-fit: contain;">
+            </a>
+            <nav class="nav-links">
+                <% if (user) { %>
+                    <a href="/profile" class="nav-link" style="display: flex; align-items: center; gap: 0.5rem;">
+                        <img src="/img/users/<%= user.profile_pic || 'Logotipo (Transparente).png' %>" alt="Perfil"
+                            style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; background-color: #121212;"
+                            onerror="this.src='/img/Logotipo (Transparente).png'">
+                        <%= user.username %>
+                    </a>
+                    <a href="/logout" class="btn btn-outline">Cerrar Sesión</a>
+                    <% } else { %>
+                        <a href="/login" class="nav-link">Iniciar Sesión</a>
+                        <a href="/register" class="btn btn-primary">Registrarse</a>
+                        <% } %>
+            </nav>
+        </div>
+    </header>
+
+    <main>

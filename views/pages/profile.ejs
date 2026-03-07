@@ -1,0 +1,107 @@
+<%- include('../partials/header') %>
+
+    <section class="profile-section animate-fade-in">
+        <div class="container">
+            <div class="profile-container auth-card" style="max-width: 600px; margin: 4rem auto;">
+                <!-- Cabecera del Perfil -->
+                <div class="profile-header">
+                    <div class="profile-pic-container">
+                        <img src="/img/users/<%= user.profile_pic || 'Logotipo (Transparente).png' %>"
+                            alt="Foto de perfil de <%= user.username %>" class="profile-pic-large"
+                            onerror="this.src='/img/Logotipo (Transparente).png'">
+                    </div>
+                    <div
+                        style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <h1 class="profile-username" id="usernameDisplay" style="margin-bottom: 0;">@<%= user.username
+                                %>
+                        </h1>
+                        <button class="btn btn-icon" id="editUsernameBtn"
+                            style="background: none; border: none; cursor: pointer; color: var(--text-secondary); padding: 0;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-edit-2">
+                                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <form id="editUsernameForm" action="/profile/update-username" method="POST"
+                        style="display: none; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <input type="text" name="new_username" class="form-control" value="<%= user.username %>"
+                            required
+                            style="width: auto; max-width: 200px; padding: 0.4rem; font-size: 1.2rem; text-align: center;">
+                        <button type="submit" class="btn btn-primary" style="padding: 0.5rem 1rem;">Guardar</button>
+                        <button type="button" class="btn btn-outline" id="cancelEditBtn"
+                            style="padding: 0.5rem 1rem;">Cancelar</button>
+                    </form>
+                    <p class="profile-role">
+                        <span class="badge">
+                            <%= user.rol==='admin' ? 'Administrador' : 'Usuario' %>
+                        </span>
+                    </p>
+
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">5</span>
+                            <span class="stat-label">Playlists</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">14</span>
+                            <span class="stat-label">Canciones</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">205</span>
+                            <span class="stat-label">Seguidores</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario y Acciones -->
+                <div class="profile-actions" style="margin-top: 2rem;">
+                    <form id="uploadProfilePicForm" action="/profile/upload" method="POST" enctype="multipart/form-data"
+                        class="profile-form" style="display: flex; justify-content: center; margin-bottom: 2rem;">
+                        <input type="file" id="profile_image" name="profile_image" accept="image/*"
+                            style="display: none;" onchange="document.getElementById('uploadProfilePicForm').submit();">
+                        <label for="profile_image"
+                            style="display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px dashed #48c3cb; background-color: rgba(72,195,203,0.05); text-align: center; cursor: pointer; border-radius: 12px; padding: 2rem; width: 100%; max-width: 250px; transition: all 0.3s ease;"
+                            onmouseover="this.style.backgroundColor='rgba(72,195,203,0.1)'"
+                            onmouseout="this.style.backgroundColor='rgba(72,195,203,0.05)'">
+                            <div
+                                style="width: 50px; height: 50px; border-radius: 50%; background-color: #48c3cb; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; box-shadow: 0 4px 10px rgba(72,195,203,0.3);">
+                                <svg viewBox="0 0 24 24" style="width: 30px; height: 30px; fill: #0b0f19;">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+                                </svg>
+                            </div>
+                            <h3 style="color: #48c3cb; margin: 0; font-size: 1.1rem; font-weight: 600;">Actualizar Foto
+                                de Perfil</h3>
+                        </label>
+                    </form>
+
+                    <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 2rem 0;">
+
+                    <h3 style="margin-bottom: 1rem; font-size: 1.2rem; color: var(--text-secondary);">Otras Acciones
+                    </h3>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+                        <a href="/player" class="btn btn-outline" style="flex: 1; min-width: 200px;">Volver al
+                            Reproductor</a>
+                        <a href="/logout" class="btn btn-outline"
+                            style="border-color: var(--error-color); color: var(--error-color); flex: 1; min-width: 200px;">Cerrar
+                            Sesión</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('editUsernameBtn').addEventListener('click', function () {
+            document.getElementById('usernameDisplay').parentElement.style.display = 'none';
+            document.getElementById('editUsernameForm').style.display = 'flex';
+        });
+
+        document.getElementById('cancelEditBtn').addEventListener('click', function () {
+            document.getElementById('editUsernameForm').style.display = 'none';
+            document.getElementById('usernameDisplay').parentElement.style.display = 'flex';
+        });
+    </script>
+    <%- include('../partials/footer') %>

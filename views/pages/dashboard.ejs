@@ -1,0 +1,27 @@
+<%- include('../partials/header') %>
+
+    <section class="hero animate-fade-in">
+        <div class="container">
+            <h1>Bienvenido a <span>AURALITH</span></h1>
+            <p>Tu plataforma musical de nueva generación. Descubre, escucha y comparte tu música favorita en un entorno
+                diseñado para ti.</p>
+
+            <% if (!user) { %>
+                <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center;">
+                    <a href="/register" class="btn btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Únete
+                        Ahora</a>
+                    <a href="/login" class="btn btn-outline" style="font-size: 1.1rem; padding: 1rem 2rem;">Inicia
+                        Sesión</a>
+                </div>
+                <% } else { %>
+                    <div style="margin-top: 2rem;">
+                        <a href="/player" class="btn btn-primary"
+                            style="font-size: 1.1rem; padding: 1rem 2rem;">Explorar Música</a>
+                    </div>
+                    <% } %>
+        </div>
+    </section>
+
+    <!-- Additional sections can go here, like Featured Playlists, Recent Uploads, etc. -->
+
+    <%- include('../partials/footer') %>

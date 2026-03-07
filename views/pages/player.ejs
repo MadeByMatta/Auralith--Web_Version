@@ -1,0 +1,258 @@
+<%- include('../partials/header') %>
+
+    <style>
+        /* Ajustes específicos para la vista del reproductor */
+        main {
+            background-color: rgba(18, 18, 18, 0.8);
+            /* Fondo oscuro moderno */
+            min-height: calc(100vh - 80px);
+            padding: 2rem;
+            color: #ffffff;
+            padding-bottom: 100px;
+            /* Espacio para el reproductor fijo si lo hubiera */
+        }
+
+        .dashboard-container {
+            max-width: 1230px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            border-left: 4px solid #48c3cb;
+            padding-left: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cards-row {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            padding-top: 1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            padding-bottom: 4rem;
+            /* Additional space to prevent box-shadow and translateY clipping */
+            /* Ocultar scrollbar estándar pero mantener funcionalidad */
+            scrollbar-width: thin;
+            scrollbar-color: #48c3cb rgba(18, 18, 18, 0.8);
+        }
+
+        .cards-row::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .cards-row::-webkit-scrollbar-track {
+            background: #1a2333;
+            border-radius: 4px;
+        }
+
+        .cards-row::-webkit-scrollbar-thumb {
+            background: #48c3cb;
+            border-radius: 4px;
+        }
+
+        .card {
+            min-width: 180px;
+            width: 180px;
+            background-color: rgb(39, 39, 39);
+            border-radius: 12px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .card:hover {
+            transform: translateY(30px);
+            background-color: rgb(0, 0, 0);
+            box-shadow: 0 5px 25px rgb(43, 236, 247);
+        }
+
+        .card-img-container {
+            width: 100%;
+            aspect-ratio: 1/1;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            background-color: #2a374c;
+            /* Placeholder de color */
+            position: relative;
+        }
+
+        .card-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-img-container img {
+            transform: scale(1.05);
+        }
+
+        .play-overlay {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #48c3cb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .card:hover .play-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .play-overlay svg {
+            fill: #0b0f19;
+            width: 20px;
+            height: 20px;
+            margin-left: 2px;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0 0.25rem 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-subtitle {
+            font-size: 0.8rem;
+            color: rgb(43, 236, 247);
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Redondear imágenes de playlists si queremos diferenciarlas */
+        .playlist-card .card-img-container {
+            border-radius: 12px;
+        }
+
+        /* Ocultar el footer general general porque el reproductor tendrá el suyo */
+        footer {
+            display: none !important;
+        }
+    </style>
+
+    <main>
+        <div class="dashboard-container">
+            <!-- Fila 1: Álbumes más escuchados de España -->
+            <section>
+                <h2 class="section-title">Álbumes más escuchados en España</h2>
+                <div class="cards-row">
+                    <% if (typeof topAlbums !=='undefined' && topAlbums.length> 0) { %>
+                        <% topAlbums.forEach(album=> { %>
+                            <a href="/album/<%= album.id %>" style="text-decoration: none; color: inherit;">
+                                <div class="card">
+                                    <div class="card-img-container">
+                                        <img src="<%= album.coverUrl %>" alt="<%= album.title %>">
+                                        <div class="play-overlay">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M8 5v14l11-7z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <h3 class="card-title">
+                                        <%= album.title %>
+                                    </h3>
+                                    <p class="card-subtitle">
+                                        <%= album.artist %>
+                                    </p>
+                                </div>
+                            </a>
+                            <% }) %>
+                                <% } else { %>
+                                    <p style="color: #a0aec0;">No hay álbumes disponibles en este momento.</p>
+                                    <% } %>
+                </div>
+            </section>
+
+            <!-- Fila 2: Canciones escuchadas por el usuario -->
+            <section>
+                <h2 class="section-title">Tus canciones más escuchadas</h2>
+                <div class="cards-row">
+                    <% for(let i=1; i<=8; i++) { %>
+                        <div class="card">
+                            <div class="card-img-container">
+                                <img src="/img/placeholder.jpg"
+                                    onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%232a374c\'/><text x=\'50\' y=\'50\' font-family=\'Arial\' font-size=\'14\' fill=\'%23a0aec0\' text-anchor=\'middle\' dominant-baseline=\'middle\'>Canción <%= i %></text></svg>'"
+                                    alt="Canción <%= i %>">
+                                <div class="play-overlay">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <h3 class="card-title">Mi Canción <%= i %>
+                            </h3>
+                            <p class="card-subtitle">Recientemente</p>
+                        </div>
+                        <% } %>
+                </div>
+            </section>
+
+            <!-- Fila 3: Playlists creadas por el usuario -->
+            <section>
+                <h2 class="section-title">Tus PLaylists</h2>
+                <div class="cards-row">
+                    <!-- Tarjeta para crear nueva playlist -->
+                    <div class="card playlist-card"
+                        style="display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px dashed #48c3cb; background-color: rgba(72,195,203,0.05); text-align: center;">
+                        <div
+                            style="width: 50px; height: 50px; border-radius: 50%; background-color: #48c3cb; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; box-shadow: 0 4px 10px rgba(72,195,203,0.3);">
+                            <svg viewBox="0 0 24 24" style="width: 30px; height: 30px; fill: #0b0f19;">
+                                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+                            </svg>
+                        </div>
+                        <h3 class="card-title" style="color: #48c3cb; white-space: normal;">Crear Nueva Playlist</h3>
+                    </div>
+
+                    <% for(let i=1; i<=4; i++) { %>
+                        <div class="card playlist-card">
+                            <div class="card-img-container">
+                                <img src="/img/placeholder.jpg"
+                                    onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%232a374c\'/><text x=\'50\' y=\'50\' font-family=\'Arial\' font-size=\'14\' fill=\'%23a0aec0\' text-anchor=\'middle\' dominant-baseline=\'middle\'>Mix <%= i %></text></svg>'"
+                                    alt="Playlist <%= i %>">
+                                <div class="play-overlay">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <h3 class="card-title">Mi Playlist <%= i %>
+                            </h3>
+                            <p class="card-subtitle">
+                                <%= user ? user.username : 'Usuario' %>
+                            </p>
+                        </div>
+                        <% } %>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>

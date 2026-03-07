@@ -1,0 +1,38 @@
+<%- include('../partials/header') %>
+
+    <div class="auth-wrapper animate-fade-in">
+        <div class="auth-card">
+            <h2 class="auth-title">Bienvenido de nuevo</h2>
+            <p class="auth-subtitle">Inicia sesión para continuar en AURALITH</p>
+
+            <% if (typeof error !=='undefined' ) { %>
+                <div
+                    style="color: var(--error-color); margin-bottom: 1rem; font-size: 0.9rem; background: #48c3cb; padding: 0.45rem; border-radius: 10px#00eeff; padding: 0.45rem; border-radius: 10px; border-radius: 8px;">
+                    <%= error %>
+                </div>
+                <% } %>
+
+                    <form action="/login" method="POST">
+                        <div class="form-group">
+                            <label for="email" class="form-label">Correo Electrónico</label>
+                            <input type="email" id="email" name="email" class="form-control" required
+                                placeholder="tu@correo.com">
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 2rem;">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" id="password" name="password" class="form-control" required
+                                placeholder="••••••••">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block" style="font-size: 1.1rem;">Iniciar
+                            Sesión</button>
+                    </form>
+
+                    <div class="form-text">
+                        ¿No tienes cuenta? <a href="/register" style="font-weight: 600;">Regístrate aquí</a>
+                    </div>
+        </div>
+    </div>
+
+    <%- include('../partials/footer') %>

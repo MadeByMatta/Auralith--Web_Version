@@ -1,0 +1,269 @@
+<%- include('../partials/header') %>
+
+    <style>
+        /* Estilos específicos para la vista del álbum */
+        main {
+            background: rgba(18, 18, 18, 0.8) 100%;
+            min-height: calc(100vh - 80px);
+            color: #ffffff;
+            padding-bottom: 100px;
+        }
+
+        .album-header {
+            display: flex;
+            align-items: flex-end;
+            padding: 3rem 2rem 2rem 2rem;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .album-cover {
+            width: 250px;
+            height: 250px;
+            box-shadow: 0 4px 60px rgba(0, 0, 0, .5);
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .album-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .album-type {
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .album-title {
+            font-size: 4rem;
+            font-weight: 900;
+            margin: 0 0 1rem 0;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+        }
+
+        .album-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #e2e8f0;
+        }
+
+        .album-artist {
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .action-bar {
+            padding: 1.5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .btn-play-large {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #48c3cb;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.1s ease, background-color 0.2s ease;
+        }
+
+        .btn-play-large:hover {
+            transform: scale(1.05);
+            background-color: #5ad5dd;
+        }
+
+        .btn-play-large svg {
+            width: 28px;
+            height: 28px;
+            fill: #0b0f19;
+            margin-left: 4px;
+            /* Ajuste óptico del triángulo */
+        }
+
+        .btn-back {
+            color: #a0aec0;
+            text-decoration: none;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            transition: color 0.2s ease;
+        }
+
+        .btn-back:hover {
+            color: #ffffff;
+        }
+
+        .tracks-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .track-list {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .track-list th {
+            text-align: left;
+            color: #a0aec0;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 400;
+            letter-spacing: 1px;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .track-list td {
+            padding: 1.25rem 1rem;
+            color: #e2e8f0;
+        }
+
+        .track-row {
+            transition: background-color 0.2s ease;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .track-row:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .track-row:hover .track-num {
+            display: none;
+        }
+
+        .track-row:hover .track-play {
+            display: block;
+        }
+
+        .track-play {
+            display: none;
+            fill: #ffffff;
+            width: 16px;
+            height: 16px;
+        }
+
+        .track-title {
+            font-weight: 500;
+            color: #ffffff;
+            font-size: 1rem;
+        }
+
+        .track-artist {
+            font-size: 0.85rem;
+            color: #a0aec0;
+            margin-top: 0.25rem;
+        }
+
+        .track-duration {
+            color: #a0aec0;
+            font-size: 0.9rem;
+            text-align: right;
+        }
+
+        /* Ocultar footer si hay reproductor */
+        footer {
+            display: none !important;
+        }
+    </style>
+
+    <main>
+        <div class="album-header">
+            <img src="<%= album.coverUrl %>" alt="<%= album.title %> Cover" class="album-cover">
+            <div class="album-info">
+                <span class="album-type">Álbum</span>
+                <h1 class="album-title">
+                    <%= album.title %>
+                </h1>
+                <div class="album-meta">
+                    <span class="album-artist">
+                        <%= album.artist %>
+                    </span>
+                    <span>•</span>
+                    <span>
+                        <%= album.releaseYear %>
+                    </span>
+                    <span>•</span>
+                    <span>
+                        <%= album.tracks.length %> canciones
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-bar">
+            <button class="btn-play-large">
+                <svg viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                </svg>
+            </button>
+            <a href="/player" class="btn-back" title="Volver">
+                <svg viewBox="0 0 24 24" style="width: 32px; height: 32px; fill: currentColor;">
+                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+                </svg>
+            </a>
+        </div>
+
+        <div class="tracks-container">
+            <table class="track-list">
+                <thead>
+                    <tr>
+                        <th style="width: 50px; text-align: center;">#</th>
+                        <th>Título</th>
+                        <th style="text-align: right;">
+                            <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: currentColor;">
+                                <path
+                                    d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
+                            </svg>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% album.tracks.forEach((track, index)=> { %>
+                        <tr class="track-row">
+                            <td style="text-align: center; color: #a0aec0; width: 50px;">
+                                <span class="track-num">
+                                    <%= index + 1 %>
+                                </span>
+                                <svg class="track-play" viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                            </td>
+                            <td>
+                                <div class="track-title">
+                                    <%= track.title %>
+                                </div>
+                                <div class="track-artist">
+                                    <%= album.artist %>
+                                </div>
+                            </td>
+                            <td class="track-duration">
+                                <%= track.duration %>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
