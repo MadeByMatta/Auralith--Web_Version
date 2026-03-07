@@ -396,7 +396,7 @@ footer {
 
     /* Dashboard Hero */
     .hero h1 {
-        font-size: 2.5rem;
+        font-size: clamp(1.8rem, 5vw, 2.2rem);
     }
 
     .hero p {
@@ -410,10 +410,13 @@ footer {
 
     .auth-card {
         padding: 1.5rem;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .auth-title {
-        font-size: 1.7rem;
+        font-size: clamp(1.4rem, 4vw, 1.7rem);
     }
 
     /* Profile Section */
@@ -434,6 +437,8 @@ footer {
     /* Container further adjustment */
     .container {
         padding: 0 1rem;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     /* Navbar stacking vertical */
@@ -448,12 +453,12 @@ footer {
 
     /* Hero */
     .hero h1 {
-        font-size: 2rem;
+        font-size: clamp(1.5rem, 8vw, 1.8rem);
     }
 
     /* Profile Section */
     .profile-username {
-        font-size: 1.8rem;
+        font-size: clamp(1.2rem, 6vw, 1.5rem);
     }
 
     .profile-stats {
