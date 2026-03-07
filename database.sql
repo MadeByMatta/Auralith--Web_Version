@@ -1,7 +1,5 @@
 -- AURALITH - Script de Base de Datos MySQL
 
-CREATE DATABASE IF NOT EXISTS auralith_db;
-USE auralith_db;
 
 -- Tabla de Usuarios
 CREATE TABLE IF NOT EXISTS usuarios (

@@ -19,10 +19,16 @@
     --font-family: 'Montserrat', sans-serif;
 }
 
+html,
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html {
+    overflow-x: hidden;
+    width: 100%;
 }
 
 body {
@@ -33,6 +39,13 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
 }
 
 /* Typography */
