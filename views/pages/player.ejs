@@ -173,16 +173,18 @@
 
             .card {
                 min-width: 0;
-                width: calc(50% - 0.5rem);
+                width: 100%;
                 padding: 0.8rem;
+                box-sizing: border-box;
             }
 
             .cards-row {
-                flex-wrap: wrap;
-                justify-content: center;
-                overflow-x: visible;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
                 gap: 1rem;
                 padding-bottom: 2rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
             }
         }
     </style>
