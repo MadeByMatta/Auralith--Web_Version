@@ -48,7 +48,6 @@ img {
     height: auto;
 }
 
-/* Typography */
 h1,
 h2,
 h3,
@@ -82,7 +81,6 @@ a:hover {
     color: var(--accent-hover);
 }
 
-/* Layout */
 .container {
     max-width: 900px;
     margin: 0 auto;
@@ -96,7 +94,6 @@ main {
     flex-direction: column;
 }
 
-/* Header Navbar */
 .navbar {
     background-color: rgba(18, 18, 18, 0.8);
     backdrop-filter: blur(10px);
@@ -141,7 +138,6 @@ main {
     color: var(--text-primary);
 }
 
-/* Buttons */
 .btn {
     display: inline-block;
     padding: 0.75rem 1.5rem;
@@ -182,7 +178,6 @@ main {
     width: 100%;
 }
 
-/* Forms (Glassmorphism inspired) */
 .auth-wrapper {
     display: flex;
     height: max-content;
@@ -253,7 +248,6 @@ main {
     font-size: 0.9rem;
 }
 
-/* Dashboard Hero */
 .hero {
     text-align: center;
     padding: 6rem 1rem;
@@ -276,7 +270,6 @@ main {
     margin: 0 auto 2rem;
 }
 
-/* Footer */
 footer {
 
     padding: 2rem 0;
@@ -286,7 +279,6 @@ footer {
     margin-top: auto;
 }
 
-/* Animations */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -303,7 +295,6 @@ footer {
     animation: fadeIn 1s ease-out forwards;
 }
 
-/* Profile Section */
 .profile-section {
     flex: 1;
     display: flex;
@@ -383,14 +374,8 @@ footer {
     letter-spacing: 1px;
 }
 
-/* =========================================
-   Media Queries (Responsiveness)
-   ========================================= */
-
-/* Tablets and Mobile Landscape */
 @media (max-width: 768px) {
 
-    /* Container adjustment */
     .container {
         padding: 0 1.5rem;
     }
@@ -407,7 +392,6 @@ footer {
         flex-wrap: wrap;
     }
 
-    /* Dashboard Hero */
     .hero h1 {
         font-size: clamp(1.8rem, 5vw, 2.2rem);
     }
@@ -416,7 +400,6 @@ footer {
         font-size: 1rem;
     }
 
-    /* Auth Wrapper */
     .auth-wrapper {
         padding: 2rem 1rem;
     }
@@ -432,7 +415,6 @@ footer {
         font-size: clamp(1.4rem, 4vw, 1.7rem);
     }
 
-    /* Profile Section */
     .profile-stats {
         flex-wrap: wrap;
         gap: 1.5rem;
@@ -444,10 +426,8 @@ footer {
     }
 }
 
-/* Mobile Portrait */
 @media (max-width: 480px) {
 
-    /* Container further adjustment */
     .container {
         padding: 0 1rem;
         width: 100%;
@@ -464,7 +444,6 @@ footer {
         width: 100%;
     }
 
-    /* Hero */
     .hero h1 {
         font-size: clamp(1.5rem, 8vw, 1.8rem);
     }
@@ -479,7 +458,6 @@ footer {
         flex-direction: column;
     }
 
-    /* Buttons */
     .btn {
         width: 100%;
         margin-bottom: 0.5rem;

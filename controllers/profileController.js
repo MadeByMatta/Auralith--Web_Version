@@ -19,17 +19,14 @@ exports.updateProfilePic = async (req, res) => {
         const userId = req.session.user.id;
         const newProfilePic = req.file.filename;
 
-        // Obtener la imagen anterior para eliminarla si no es la por defecto
+        // Foto anterior no por defecto
         const [rows] = await db.query('SELECT profile_pic FROM usuarios WHERE id = ?', [userId]);
         const oldPic = rows[0]?.profile_pic;
 
-        // Actualizar la base de datos
         await db.query('UPDATE usuarios SET profile_pic = ? WHERE id = ?', [newProfilePic, userId]);
 
-        // Actualizar la sesión
         req.session.user.profile_pic = newProfilePic;
 
-        // Eliminar la imagen anterior del servidor si no es la por defecto
         if (oldPic && oldPic !== 'Logotipo (Transparente).png') {
             const oldPath = path.join(__dirname, '../public/img/users', oldPic);
             if (fs.existsSync(oldPath)) {
@@ -55,16 +52,13 @@ exports.updateUsername = async (req, res) => {
     try {
         const userId = req.session.user.id;
 
-        // Check if username is taken
         const existingUser = await UserModel.findByUsername(new_username);
         if (existingUser && existingUser.id !== userId) {
             return res.status(400).send('Ese nombre de usuario ya está en uso.');
         }
 
-        // Update DB
         await UserModel.updateUsername(userId, new_username);
 
-        // Update session
         req.session.user.username = new_username;
 
         res.redirect('/profile');

@@ -40,7 +40,6 @@ exports.getRegister = (req, res) => {
 exports.postRegister = async (req, res) => {
     const { nombre_usuario, email, password } = req.body;
     try {
-        // Verificar existencia
         const userByEmail = await UserModel.findByEmail(email);
         if (userByEmail) {
             return res.render('pages/register', { title: 'Registrarse', error: 'El correo ya está en uso.' });
@@ -50,7 +49,6 @@ exports.postRegister = async (req, res) => {
             return res.render('pages/register', { title: 'Registrarse', error: 'El nombre de usuario ya está en uso.' });
         }
 
-        // Hashear password y crear
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUserId = await UserModel.create({
             username: nombre_usuario,
@@ -58,11 +56,11 @@ exports.postRegister = async (req, res) => {
             passwordHash: hashedPassword
         });
 
-        // Iniciar sesión automáticamente
+        // Autenticar usuario
         req.session.user = {
             id: newUserId,
             username: nombre_usuario,
-            rol: 'user', // Asumimos rol por defecto
+            rol: 'user',
             profile_pic: 'Logotipo (Transparente).png'
         };
 

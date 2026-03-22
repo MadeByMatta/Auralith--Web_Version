@@ -1,6 +1,6 @@
 const topAlbumsSpain = [
 
-        {
+    {
         id: '1',
         title: 'SB2',
         artist: 'Hecky',
@@ -28,12 +28,12 @@ const topAlbumsSpain = [
         ]
     },
     {
-        id:'2',
-        title:'Vamos pa´ Paris',
-        artist:'Mata',
-        coverUrl:'/img/albums/Vamos_pa_Paris.jpg',
-        releaseYear:'2025',
-        tracks:[
+        id: '2',
+        title: 'Vamos pa´  Paris',
+        artist: 'Mata',
+        coverUrl: '/img/albums/Vamos_pa_Paris.jpg',
+        releaseYear: '2025',
+        tracks: [
             { id: '2-1', title: 'Vamos pa´ Paris', duration: '1:50' },
         ]
     },
@@ -82,7 +82,7 @@ const topAlbumsSpain = [
             { id: '5-6', title: 'CYBERTRUCK', duration: '3:11' }
         ]
     },
-        {
+    {
         id: '6',
         title: 'Un Verano Sin Ti',
         artist: 'Bad Bunny',

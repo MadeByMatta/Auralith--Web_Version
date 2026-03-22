@@ -5,7 +5,6 @@ const profileController = require('../controllers/profileController');
 const path = require('path');
 const multer = require('multer');
 
-// Configuración de Multer para las imágenes de perfil
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, path.join(__dirname, '../public/img/users'));
@@ -25,7 +24,6 @@ router.post('/register', authController.postRegister);
 
 router.get('/logout', authController.logout);
 
-// Rutas de Perfil
 router.get('/profile', profileController.getProfile);
 router.post('/profile/upload', upload.single('profile_image'), profileController.updateProfilePic);
 router.post('/profile/update-username', profileController.updateUsername);

@@ -1,7 +1,9 @@
 # AURALITH (VERSIÓN WEB)
 
 ## ANTEPROYECTO: ANTEPROYECTO – AURALITH
-Soy Luis Cachero Mata, el año pasado cursé el ciclo formativo de Desarrollo de Aplicaciones Multiplataforma (DAM) y para el Trabajo de Fin de Grado desarrollé una aplicación móvil llamada Auralith.
+Soy Luis Cachero Mata, 
+el año pasado cursé el ciclo formativo de Desarrollo de Aplicaciones Multiplataforma (DAM) y para el Trabajo de Fin de Grado desarrollé una aplicación móvil llamada Auralith.
+
 Auralith fue un proyecto centrado en la música, concretamente en la reproducción y organización de canciones dentro de una aplicación propia. Permitía gestionar archivos de audio, reproducirlos desde una interfaz diseñada por mí y almacenar la información de cada canción en una base de datos estructurada. 
 Sin embargo, Auralith no fue solo una práctica técnica. Elegí la temática musical porque es un ámbito que me interesa personalmente, y eso hizo que me implicara más en cada detalle del desarrollo. No lo veía únicamente como un proyecto académico que debía terminar, sino como una idea que realmente me apetecía construir y mejorar.
 
@@ -31,7 +33,7 @@ Con este Trabajo de Fin de Grado busco consolidar mis conocimientos como desarro
 En definitiva, Auralith en su versión web será la continuación natural de un proyecto anterior, pero adaptado a un entorno más amplio y con mayores posibilidades. Más que empezar desde cero, se trata de mejorar y hacer crecer una idea que ya forma parte de mi trayectoria académica.
 
 ## 50% del Proyecto (Estado Actual)
-Hasta el momento, estas son las bases tecnológicas y visuales que ya hemos construido y consolidado, alcanzando la marca del 50% del proyecto:
+Hasta el momento, estas son las bases tecnológicas y visuales que ya he construido y consolidado, alcanzando la marca del 50% del proyecto:
 - **Estructura Backend:** Implementación del servidor utilizando Node.js y framework Express, separando rutas, controladores y las vistas siguiendo una arquitectura Modelo-Vista-Controlador.
 - **Base de Datos y Seguridad:** Diseño lógico e implementación SQL para almacenar Usuarios, Canciones, Álbumes y Playlists. Creación del sistema de "Registro e Inicio de sesión seguro" con JWT (o sesiones) y uso de variables de entorno, de modo que tu cuenta en `Auralith` ya es personal e intransferible.
 - **Sistema de Rutas Privadas:** Ya existe control de acceso: los usuarios sin autenticar redirigen al login, y los autenticados tienen acceso a su vista `player` y vistas administrativas o personales.

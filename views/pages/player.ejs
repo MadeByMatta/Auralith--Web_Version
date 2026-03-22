@@ -1,15 +1,12 @@
 <%- include('../partials/header') %>
 
     <style>
-        /* Ajustes específicos para la vista del reproductor */
         main {
             background-color: rgba(18, 18, 18, 0.8);
-            /* Fondo oscuro moderno */
             min-height: calc(100vh - 80px);
             padding: 2rem;
             color: #ffffff;
             padding-bottom: 100px;
-            /* Espacio para el reproductor fijo si lo hubiera */
         }
 
         .dashboard-container {
@@ -39,8 +36,6 @@
             padding-left: 1rem;
             padding-right: 1rem;
             padding-bottom: 4rem;
-            /* Additional space to prevent box-shadow and translateY clipping */
-            /* Ocultar scrollbar estándar pero mantener funcionalidad */
             scrollbar-width: thin;
             scrollbar-color: #48c3cb rgba(18, 18, 18, 0.8);
         }
@@ -85,7 +80,6 @@
             overflow: hidden;
             margin-bottom: 1rem;
             background-color: #2a374c;
-            /* Placeholder de color */
             position: relative;
         }
 
@@ -147,17 +141,14 @@
             text-overflow: ellipsis;
         }
 
-        /* Redondear imágenes de playlists si queremos diferenciarlas */
         .playlist-card .card-img-container {
             border-radius: 12px;
         }
 
-        /* Ocultar el footer general general porque el reproductor tendrá el suyo */
         footer {
             display: none !important;
         }
 
-        /* Responsive Player */
         @media (max-width: 768px) {
             main {
                 padding: 1rem;
@@ -191,7 +182,6 @@
 
     <main>
         <div class="dashboard-container">
-            <!-- Fila 1: Álbumes más escuchados de España -->
             <section>
                 <h2 class="section-title">Álbumes más escuchados en España</h2>
                 <div class="cards-row">
@@ -222,7 +212,6 @@
                 </div>
             </section>
 
-            <!-- Fila 2: Canciones escuchadas por el usuario -->
             <section>
                 <h2 class="section-title">Tus canciones más escuchadas</h2>
                 <div class="cards-row">
@@ -246,11 +235,9 @@
                 </div>
             </section>
 
-            <!-- Fila 3: Playlists creadas por el usuario -->
             <section>
                 <h2 class="section-title">Tus PLaylists</h2>
                 <div class="cards-row">
-                    <!-- Tarjeta para crear nueva playlist -->
                     <div class="card playlist-card"
                         style="display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px dashed #48c3cb; background-color: rgba(72,195,203,0.05); text-align: center;">
                         <div
