@@ -1,0 +1,223 @@
+<style>
+    .global-player {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #121212;
+        border-top: 1px solid #282828;
+        padding: 0.8rem 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 1000;
+        color: #fff;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .player-track-info {
+        display: flex;
+        align-items: center;
+        width: 25%;
+        min-width: 180px;
+    }
+
+    .player-cover {
+        width: 56px;
+        height: 56px;
+        border-radius: 4px;
+        margin-right: 1rem;
+        object-fit: cover;
+    }
+
+    .player-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .player-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 0.2rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 200px;
+    }
+
+    .player-artist {
+        font-size: 0.75rem;
+        color: #a0aec0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 200px;
+    }
+
+    .player-controls-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 50%;
+        max-width: 600px;
+    }
+
+    .player-controls {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .control-btn {
+        background: none;
+        border: none;
+        color: #a0aec0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.2s, transform 0.2s;
+        padding: 0;
+    }
+
+    .control-btn:hover {
+        color: #fff;
+    }
+
+    .play-pause-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: #fff;
+        color: #000;
+    }
+
+    .play-pause-btn:hover {
+        transform: scale(1.05);
+        color: #000;
+    }
+
+    .play-pause-btn svg {
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+    }
+
+    .control-btn svg {
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+    }
+
+    .progress-container {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        gap: 0.5rem;
+        font-size: 0.75rem;
+        color: #a0aec0;
+    }
+
+    .progress-bar-bg {
+        flex-grow: 1;
+        height: 4px;
+        background-color: #404040;
+        border-radius: 2px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .progress-bar-fill {
+        height: 100%;
+        background-color: #48c3cb;
+        border-radius: 2px;
+        width: 0%;
+        transition: width 0.1s linear;
+    }
+
+    .progress-bar-bg:hover .progress-bar-fill {
+        background-color: #5ad5dd;
+    }
+
+    .player-extra {
+        display: flex;
+        align-items: center;
+        width: 25%;
+        justify-content: flex-end;
+        gap: 1rem;
+    }
+
+    .volume-container {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .volume-bar-bg {
+        width: 80px;
+        height: 4px;
+        background-color: #404040;
+        border-radius: 2px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .volume-bar-fill {
+        height: 100%;
+        background-color: #fff;
+        border-radius: 2px;
+        width: 50%;
+    }
+
+    .volume-bar-bg:hover .volume-bar-fill {
+        background-color: #48c3cb;
+    }
+</style>
+
+<div class="global-player" id="global-player" style="display: none;">
+    <div class="player-track-info">
+        <img id="player-cover" src="/img/placeholder.jpg" alt="Cover" class="player-cover">
+        <div class="player-text">
+            <div id="player-title" class="player-title">Título de la canción</div>
+            <div id="player-artist" class="player-artist">Artista</div>
+        </div>
+    </div>
+
+    <div class="player-controls-container">
+        <div class="player-controls">
+            <button class="control-btn" id="prev-btn">
+                <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+            </button>
+            <button class="control-btn play-pause-btn" id="play-pause-btn">
+                <svg viewBox="0 0 24 24" id="play-icon"><path d="M8 5v14l11-7z"/></svg>
+                <svg viewBox="0 0 24 24" id="pause-icon" style="display: none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            </button>
+            <button class="control-btn" id="next-btn">
+                <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+            </button>
+        </div>
+        <div class="progress-container">
+            <span id="current-time">0:00</span>
+            <div class="progress-bar-bg" id="progress-bar">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+            <span id="total-time">0:00</span>
+        </div>
+    </div>
+
+    <div class="player-extra">
+        <div class="volume-container">
+            <button class="control-btn" id="mute-btn">
+                <svg viewBox="0 0 24 24" id="volume-icon"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+            </button>
+            <div class="volume-bar-bg" id="volume-bar">
+                <div class="volume-bar-fill" id="volume-fill"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<audio id="audio-element"></audio>
+<script src="/js/audio-player.js"></script>

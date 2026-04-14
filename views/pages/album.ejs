@@ -245,7 +245,7 @@
         </div>
 
         <div class="action-bar">
-            <button class="btn-play-large">
+            <button class="btn-play-large" onclick="const firstTrack = document.querySelector('.playable-track'); if(firstTrack) firstTrack.click();">
                 <svg viewBox="0 0 24 24">
                     <path d="M8 5v14l11-7z" />
                 </svg>
@@ -273,7 +273,7 @@
                 </thead>
                 <tbody>
                     <% album.tracks.forEach((track, index)=> { %>
-                        <tr class="track-row">
+                        <tr class="track-row playable-track" data-audio-url="<%= track.audioUrl %>" data-title="<%= track.title %>" data-artist="<%= album.artist %>" data-cover="<%= album.coverUrl %>">
                             <td style="text-align: center; color: #a0aec0; width: 50px;">
                                 <span class="track-num">
                                     <%= index + 1 %>
