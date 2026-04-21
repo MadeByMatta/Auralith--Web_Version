@@ -127,10 +127,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Add click listeners to track rows
-    const documentTracks = document.querySelectorAll('.playable-track');
-    documentTracks.forEach(trackRow => {
-        trackRow.addEventListener('click', () => {
+    // Add click listeners using event delegation
+    document.addEventListener('click', (e) => {
+        const trackRow = e.target.closest('.playable-track');
+        if (trackRow) {
             const url = trackRow.dataset.audioUrl;
             const title = trackRow.dataset.title;
             const artist = trackRow.dataset.artist;
@@ -139,6 +139,87 @@ document.addEventListener('DOMContentLoaded', () => {
             if (url) {
                 window.playTrack(url, title, artist, cover);
             }
-        });
+        }
+    });
+
+    // SPA soft navigation to avoid full page reloads and keep audio playing
+    document.addEventListener('click', async (e) => {
+        const link = e.target.closest('a');
+        if (!link) return;
+        
+        const href = link.getAttribute('href');
+        // Ignore external links, anchors, or strictly auth-related routes
+        if (!href || href.startsWith('http') || href.startsWith('//') || href.startsWith('#')) return;
+        if (href.startsWith('/login') || href.startsWith('/logout') || href.startsWith('/register')) return;
+        
+        // Only trigger SPA navigation for known areas: player home, albums, profile and root
+        if (href === '/player' || href.startsWith('/album/') || href === '/profile' || href === '/') {
+            e.preventDefault();
+            
+            try {
+                const response = await fetch(href);
+                if (!response.ok) throw new Error('Network response not ok');
+                const html = await response.text();
+                
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                
+                const newMain = doc.querySelector('main');
+                const currentMain = document.querySelector('main');
+                
+                if (newMain && currentMain) {
+                    currentMain.innerHTML = newMain.innerHTML;
+                    
+                    // Execute injected scripts
+                    const scripts = currentMain.querySelectorAll('script');
+                    scripts.forEach(oldScript => {
+                        const newScript = document.createElement('script');
+                        Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                        newScript.appendChild(document.createTextNode(oldScript.textContent));
+                        oldScript.parentNode.replaceChild(newScript, oldScript);
+                    });
+                    
+                    document.title = doc.title;
+                    window.history.pushState(null, '', href);
+                    window.scrollTo(0, 0);
+                } else {
+                    window.location.href = href;
+                }
+            } catch (err) {
+                console.error('SPA Navigation error:', err);
+                window.location.href = href;
+            }
+        }
+    });
+
+    window.addEventListener('popstate', async () => {
+        try {
+            const response = await fetch(window.location.href);
+            const html = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            const newMain = doc.querySelector('main');
+            const currentMain = document.querySelector('main');
+            
+            if (newMain && currentMain) {
+                currentMain.innerHTML = newMain.innerHTML;
+                
+                // Execute injected scripts
+                const scripts = currentMain.querySelectorAll('script');
+                scripts.forEach(oldScript => {
+                    const newScript = document.createElement('script');
+                    Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                    newScript.appendChild(document.createTextNode(oldScript.textContent));
+                    oldScript.parentNode.replaceChild(newScript, oldScript);
+                });
+                
+                document.title = doc.title;
+            } else {
+                window.location.reload();
+            }
+        } catch (err) {
+            window.location.reload();
+        }
     });
 });

@@ -34,21 +34,17 @@ const topAlbumsSpain = [
         coverUrl: '/img/albums/Vamos_pa_Paris.jpg',
         releaseYear: '2025',
         tracks: [
-            { id: '2-1', title: 'Vamos pa´ Paris', duration: '1:50' , audioUrl: '/audio/Vamos-pa-Paris-MASTER.mp3' },
+            { id: '2-1', title: 'Vamos pa´ Paris', duration: '2:30' , audioUrl: '/audio/Vamos-pa-Paris-MASTER.mp3' },
         ]
     },
     {
         id: '3',
-        title: 'ESTRELLA',
-        artist: 'Mora',
-        coverUrl: '/img/albums/estrella.jpg',
-        releaseYear: '2023',
+        title: 'Fuerza Bruta',
+        artist: 'Mata',
+        coverUrl: '/img/albums/Fuerza_Bruta.jpg',
+        releaseYear: '2026',
         tracks: [
-            { id: '3-1', title: 'MEDIA LUNA', duration: '3:10' , audioUrl: '/audio/sample.mp3' },
-            { id: '3-2', title: 'PASAJERO', duration: '2:45' , audioUrl: '/audio/sample.mp3' },
-            { id: '3-3', title: 'FANTASÍAS', duration: '3:22' , audioUrl: '/audio/sample.mp3' },
-            { id: '3-4', title: 'DONDE ESTÁS', duration: '3:15' , audioUrl: '/audio/sample.mp3' },
-            { id: '3-5', title: 'PÓLVORA', duration: '3:05' , audioUrl: '/audio/sample.mp3' }
+            { id: '3-1', title: 'Fuerza Bruta', duration: '1:50' , audioUrl: '/audio/Fuerza_Bruta.mp3' }
         ]
     },
     {
