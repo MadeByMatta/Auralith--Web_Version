@@ -212,61 +212,16 @@
             </section>
 
             <section>
-                <h2 class="section-title">Tus canciones más escuchadas</h2>
-                <div class="cards-row">
-                    <% for(let i=1; i<=8; i++) { %>
-                        <div class="card">
-                            <div class="card-img-container">
-                                <img src="/img/placeholder.jpg"
-                                    onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%232a374c\'/><text x=\'50\' y=\'50\' font-family=\'Arial\' font-size=\'14\' fill=\'%23a0aec0\' text-anchor=\'middle\' dominant-baseline=\'middle\'>Canción <%= i %></text></svg>'"
-                                    alt="Canción <%= i %>">
-                                <div class="play-overlay">
-                                    <svg viewBox="0 0 24 24">
-                                        <path d="M8 5v14l11-7z" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <h3 class="card-title">Mi Canción <%= i %>
-                            </h3>
-                            <p class="card-subtitle">Recientemente</p>
-                        </div>
-                        <% } %>
-                </div>
-            </section>
+                <h2 class="section-title">Sobre Auralith (TFG)</h2>
+                <div style="background-color: rgb(39, 39, 39); border-radius: 12px; padding: 2rem; color: #e2e8f0; line-height: 1.6; text-align: justify; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);">
+                    <h3 style="color: #48c3cb; margin-top: 0; margin-bottom: 1rem; font-size: 1.25rem;">¿Qué es Auralith?</h3>
+                    <p style="margin-bottom: 2.5rem;">Auralith es una plataforma web de streaming musical diseñada como Trabajo de Fin de Grado (TFG). El objetivo principal de este proyecto es ofrecer una experiencia inmersiva para descubrir, reproducir y explorar música, aplicando de forma práctica los conocimientos de desarrollo web full-stack adquiridos.</p>
+                    
+                    <h3 style="color: #48c3cb; margin-bottom: 1rem; font-size: 1.25rem;">¿Por qué este proyecto?</h3>
+                    <p style="margin-bottom: 2.5rem;">La elección de desarrollar una plataforma de streaming musical nace de la pasión por la música y del gran desafío técnico que supone. A diferencia de aplicaciones convencionales, un clon o alternativa a Spotify requiere manejar el estado global de un reproductor de audio, garantizar una navegación sin interrupciones y diseñar una interfaz de usuario verdaderamente dinámica (UX/UI).</p>
 
-            <section>
-                <h2 class="section-title">Tus PLaylists</h2>
-                <div class="cards-row">
-                    <div class="card playlist-card"
-                        style="display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px dashed #48c3cb; background-color: rgba(72,195,203,0.05); text-align: center;">
-                        <div
-                            style="width: 50px; height: 50px; border-radius: 50%; background-color: #48c3cb; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; box-shadow: 0 4px 10px rgba(72,195,203,0.3);">
-                            <svg viewBox="0 0 24 24" style="width: 30px; height: 30px; fill: #0b0f19;">
-                                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-                            </svg>
-                        </div>
-                        <h3 class="card-title" style="color: #48c3cb; white-space: normal;">Crear Nueva Playlist</h3>
-                    </div>
-
-                    <% for(let i=1; i<=4; i++) { %>
-                        <div class="card playlist-card">
-                            <div class="card-img-container">
-                                <img src="/img/placeholder.jpg"
-                                    onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%232a374c\'/><text x=\'50\' y=\'50\' font-family=\'Arial\' font-size=\'14\' fill=\'%23a0aec0\' text-anchor=\'middle\' dominant-baseline=\'middle\'>Mix <%= i %></text></svg>'"
-                                    alt="Playlist <%= i %>">
-                                <div class="play-overlay">
-                                    <svg viewBox="0 0 24 24">
-                                        <path d="M8 5v14l11-7z" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <h3 class="card-title">Mi Playlist <%= i %>
-                            </h3>
-                            <p class="card-subtitle">
-                                <%= user ? user.username : 'Usuario' %>
-                            </p>
-                        </div>
-                        <% } %>
+                    <h3 style="color: #48c3cb; margin-bottom: 1rem; font-size: 1.25rem;">¿Por qué Auralith y no otro?</h3>
+                    <p style="margin-bottom: 0;">Se optó por este proyecto porque abarca un ecosistema tecnológico completo: desde el diseño y gestión de bases de datos relacionales para música y usuarios, hasta la implementación de una interfaz interactiva y moderna. Es el reto perfecto para demostrar de forma tangible las competencias integradas de Backend y Frontend en una aplicación atractiva y funcional.</p>
                 </div>
             </section>
         </div>

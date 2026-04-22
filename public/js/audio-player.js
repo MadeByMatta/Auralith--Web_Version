@@ -14,9 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const playerCover = document.getElementById('player-cover');
     const playerTitle = document.getElementById('player-title');
     const playerArtist = document.getElementById('player-artist');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
 
     let isPlaying = false;
     let currentTrackUrl = null;
+    let currentPlaylist = [];
+    let currentIndex = -1;
 
     // Helper to format time
     const formatTime = (time) => {
@@ -56,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         pauseIcon.style.display = 'none';
         progressFill.style.width = '0%';
         currentTimeEl.textContent = '0:00';
+        playNextTrack(); // Auto play next track
     });
 
     // Handle time update for progress bar
@@ -109,6 +114,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     playPauseBtn.addEventListener('click', togglePlay);
 
+    // Play Next Track
+    const playNextTrack = () => {
+        if (currentPlaylist.length === 0 || currentIndex === -1) return;
+        let nextIndex = currentIndex + 1;
+        if (nextIndex >= currentPlaylist.length) {
+            nextIndex = 0; // loop to beginning
+        }
+        playTrackFromIndex(nextIndex);
+    };
+
+    // Play Previous Track
+    const playPrevTrack = () => {
+        if (currentPlaylist.length === 0 || currentIndex === -1) return;
+        let prevIndex = currentIndex - 1;
+        if (prevIndex < 0) {
+            prevIndex = currentPlaylist.length - 1; // loop to end
+        }
+        playTrackFromIndex(prevIndex);
+    };
+
+    const playTrackFromIndex = (index) => {
+        if (index < 0 || index >= currentPlaylist.length) return;
+        currentIndex = index;
+        const track = currentPlaylist[index];
+        window.playTrack(track.url, track.title, track.artist, track.cover);
+    };
+
+    if (prevBtn) prevBtn.addEventListener('click', playPrevTrack);
+    if (nextBtn) nextBtn.addEventListener('click', playNextTrack);
+
     // Play a track explicitly
     window.playTrack = (url, title, artist, coverUrl) => {
         globalPlayer.style.display = 'flex';
@@ -131,13 +166,20 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', (e) => {
         const trackRow = e.target.closest('.playable-track');
         if (trackRow) {
+            // Update playlist array with current tracks on screen
+            const trackElements = document.querySelectorAll('.playable-track');
+            currentPlaylist = Array.from(trackElements).map(el => ({
+                url: el.dataset.audioUrl,
+                title: el.dataset.title,
+                artist: el.dataset.artist,
+                cover: el.dataset.cover
+            }));
+            
             const url = trackRow.dataset.audioUrl;
-            const title = trackRow.dataset.title;
-            const artist = trackRow.dataset.artist;
-            const cover = trackRow.dataset.cover;
+            currentIndex = currentPlaylist.findIndex(t => t.url === url);
             
             if (url) {
-                window.playTrack(url, title, artist, cover);
+                window.playTrack(url, trackRow.dataset.title, trackRow.dataset.artist, trackRow.dataset.cover);
             }
         }
     });
