@@ -174,6 +174,69 @@
     .volume-bar-bg:hover .volume-bar-fill {
         background-color: #48c3cb;
     }
+
+    @media (max-width: 768px) {
+        .global-player {
+            padding: 0.5rem 1rem;
+        }
+
+        .player-track-info {
+            width: 60%;
+            min-width: 0;
+        }
+
+        .player-cover {
+            width: 44px;
+            height: 44px;
+            margin-right: 0.75rem;
+        }
+
+        .player-title {
+            font-size: 0.85rem;
+            max-width: 100%;
+        }
+
+        .player-artist {
+            font-size: 0.7rem;
+            max-width: 100%;
+        }
+
+        .player-controls-container {
+            width: 40%;
+            flex-direction: row;
+            justify-content: flex-end;
+        }
+
+        .player-controls {
+            margin-bottom: 0;
+            gap: 1rem;
+        }
+
+        .progress-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            gap: 0;
+        }
+
+        .progress-container span {
+            display: none;
+        }
+
+        .progress-bar-bg {
+            height: 2px;
+            border-radius: 0;
+        }
+
+        .player-extra {
+            display: none;
+        }
+
+        #prev-btn {
+            display: none;
+        }
+    }
 </style>
 
 <div class="global-player" id="global-player" style="display: none;">
