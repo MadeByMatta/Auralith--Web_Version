@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressFill = document.getElementById('progress-fill');
     const currentTimeEl = document.getElementById('current-time');
     const totalTimeEl = document.getElementById('total-time');
-    const volumeBar = document.getElementById('volume-bar');
+    //const volumeBar = document.getElementById('volume-bar');
     const volumeFill = document.getElementById('volume-fill');
     const muteBtn = document.getElementById('mute-btn');
     const playerCover = document.getElementById('player-cover');
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
     audio.volume = currentVolume;
     volumeFill.style.width = `${currentVolume * 100}%`;
 
-    volumeBar.addEventListener('click', (e) => {
+   /* volumeBar.addEventListener('click', (e) => {
         const rect = volumeBar.getBoundingClientRect();
         const clickX = e.clientX - rect.left;
         const width = rect.width;
@@ -102,6 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentVolume = percentage;
         audio.muted = false;
     });
+    */
 
     muteBtn.addEventListener('click', () => {
         audio.muted = !audio.muted;
