@@ -19,7 +19,6 @@ app.use(session({
     cookie: { secure: false }
 }));
 
-// Pasar usuario a la vista
 app.use((req, res, next) => {
     res.locals.user = req.session.user || null;
     next();

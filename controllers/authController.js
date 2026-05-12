@@ -56,7 +56,6 @@ exports.postRegister = async (req, res) => {
             passwordHash: hashedPassword
         });
 
-        // Autenticar usuario
         req.session.user = {
             id: newUserId,
             username: nombre_usuario,

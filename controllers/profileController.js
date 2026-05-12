@@ -19,7 +19,6 @@ exports.updateProfilePic = async (req, res) => {
         const userId = req.session.user.id;
         const newProfilePic = req.file.filename;
 
-        // Foto anterior no por defecto
         const [rows] = await db.query('SELECT profile_pic FROM usuarios WHERE id = ?', [userId]);
         const oldPic = rows[0]?.profile_pic;
 
