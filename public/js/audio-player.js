@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const togglePlay = () => {
-        if (!currentTrackUrl) return;
+        if (!currentTrackUrl || !audio) return;
 
         if (isPlaying) {
             audio.pause();
@@ -38,62 +38,74 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    audio.addEventListener('play', () => {
-        isPlaying = true;
-        playIcon.style.display = 'none';
-        pauseIcon.style.display = 'block';
-    });
+    if (audio) {
+        audio.addEventListener('play', () => {
+            isPlaying = true;
+            if (playIcon) playIcon.style.display = 'none';
+            if (pauseIcon) pauseIcon.style.display = 'block';
+        });
 
-    audio.addEventListener('pause', () => {
-        isPlaying = false;
-        playIcon.style.display = 'block';
-        pauseIcon.style.display = 'none';
-    });
+        audio.addEventListener('pause', () => {
+            isPlaying = false;
+            if (playIcon) playIcon.style.display = 'block';
+            if (pauseIcon) pauseIcon.style.display = 'none';
+        });
 
-    audio.addEventListener('ended', () => {
-        isPlaying = false;
-        playIcon.style.display = 'block';
-        pauseIcon.style.display = 'none';
-        progressFill.style.width = '0%';
-        currentTimeEl.textContent = '0:00';
-        playNextTrack(); 
-    });
+        audio.addEventListener('ended', () => {
+            isPlaying = false;
+            if (playIcon) playIcon.style.display = 'block';
+            if (pauseIcon) pauseIcon.style.display = 'none';
+            if (progressFill) progressFill.style.width = '0%';
+            if (currentTimeEl) currentTimeEl.textContent = '0:00';
+            playNextTrack(); 
+        });
 
-    audio.addEventListener('timeupdate', () => {
-        if (!audio.duration) return;
-        const progressPercent = (audio.currentTime / audio.duration) * 100;
-        progressFill.style.width = `${progressPercent}%`;
-        currentTimeEl.textContent = formatTime(audio.currentTime);
-    });
+        audio.addEventListener('timeupdate', () => {
+            if (!audio.duration) return;
+            const progressPercent = (audio.currentTime / audio.duration) * 100;
+            if (progressFill) progressFill.style.width = `${progressPercent}%`;
+            if (currentTimeEl) currentTimeEl.textContent = formatTime(audio.currentTime);
+        });
 
-    audio.addEventListener('loadedmetadata', () => {
-        totalTimeEl.textContent = formatTime(audio.duration);
-    });
+        audio.addEventListener('loadedmetadata', () => {
+            if (totalTimeEl) totalTimeEl.textContent = formatTime(audio.duration);
+        });
+    }
 
-    progressBar.addEventListener('click', (e) => {
-        if (!audio.duration) return;
-        const rect = progressBar.getBoundingClientRect();
-        const clickX = e.clientX - rect.left;
-        const width = rect.width;
-        const percentage = clickX / width;
-        audio.currentTime = percentage * audio.duration;
-    });
+    if (progressBar) {
+        progressBar.addEventListener('click', (e) => {
+            if (!audio || !audio.duration) return;
+            const rect = progressBar.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const width = rect.width;
+            const percentage = clickX / width;
+            audio.currentTime = percentage * audio.duration;
+        });
+    }
 
     let currentVolume = 0.5;
-    audio.volume = currentVolume;
-    volumeFill.style.width = `${currentVolume * 100}%`;
+    if (audio) audio.volume = currentVolume;
+    if (volumeFill) {
+        volumeFill.style.width = `${currentVolume * 100}%`;
+    }
 
 
-    muteBtn.addEventListener('click', () => {
-        audio.muted = !audio.muted;
-        if (audio.muted) {
-            volumeFill.style.width = '0%';
-        } else {
-            volumeFill.style.width = `${currentVolume * 100}%`;
-        }
-    });
+    if (muteBtn) {
+        muteBtn.addEventListener('click', () => {
+            audio.muted = !audio.muted;
+            if (volumeFill) {
+                if (audio.muted) {
+                    volumeFill.style.width = '0%';
+                } else {
+                    volumeFill.style.width = `${currentVolume * 100}%`;
+                }
+            }
+        });
+    }
 
-    playPauseBtn.addEventListener('click', togglePlay);
+    if (playPauseBtn) {
+        playPauseBtn.addEventListener('click', togglePlay);
+    }
 
     const playNextTrack = () => {
         if (currentPlaylist.length === 0 || currentIndex === -1) return;
@@ -124,16 +136,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (nextBtn) nextBtn.addEventListener('click', playNextTrack);
 
     window.playTrack = (url, title, artist, coverUrl) => {
-        globalPlayer.style.display = 'flex';
+        if (globalPlayer) globalPlayer.style.display = 'flex';
 
                 if (currentTrackUrl !== url) {
-            audio.src = url;
-            currentTrackUrl = url;
-            playerTitle.textContent = title;
-            playerArtist.textContent = artist;
-            if (coverUrl) playerCover.src = coverUrl;
+            if (audio) {
+                audio.src = url;
+                currentTrackUrl = url;
+                if (playerTitle) playerTitle.textContent = title;
+                if (playerArtist) playerArtist.textContent = artist;
+                if (coverUrl && playerCover) playerCover.src = coverUrl;
 
-            audio.play().catch(console.error);
+                audio.play().catch(console.error);
+            }
         } else {
             togglePlay();
         }
